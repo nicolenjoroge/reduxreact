@@ -1,0 +1,69 @@
+This is finally!(Its been such a pain) an implementation of Redux with a Shopping Cart App
+
+Steps are as follows:
+1. Create your store. Here is where you will pass the reducers from the different slices; but
+we only have one now which is the cartSlice
+
+2. Add the store to the index.tsx through a Provider so that it can do its thing!
+
+3. CartSlice. This slice is supposed to handle 3 things: 
+    i. Change of state when we add an item to the cart
+    ii. Change of state when we remove an item from cart
+    iii. Change of quantity
+
+So, basically that means we have(drum roll!) 3 actions in our reducer
+Before that: we need an initialstate which we created from a cartstate interface which is an array
+of Cartitems(where our actual cart properties lie)
+
+Remember through createSlice we have 3 thing to successfully make this happen:
+    i. give your slice a name! ata kama ni kikapu, basketi whatever
+    ii. pass the initialstate(better to have it as a variable)
+    iii. reducer
+
+Lets focus on our reducer:
+
+The reducer has: addItem()
+This is meant to actually pass the product into our cart INTACT!(what you see is what you get)
+How?
+Good question, we need a unique thing...Hmmmm...ah! ID. Exactly.
+In Redux we always have state, actions. The state is the actual yk state; then the actions are visible
+changes we induce to impact the state.
+
+So we have addItem where we get the id and do an id match: match the productid, with the cartid(think about
+it like we are transfering the id of that product to match with the cart LOGICALLY)
+Because we are oh so good programmers, we have to actually think about every scenario right?
+
+So what if the exact product is already in the cart then it adds itself at the bottom? Ghetto right?
+
+But we not from the Ghetto we trying to get out! So we can just idk, ADD ON TO THE QUANTITY
+
+First, we check for existing items where the product id exists in the cart, then we say that the item that exists
+should take up the action of only adding on to the quantity; not creating a whole other entry
+but, if its totally new, then we add the whole product
+
+Tuko sambamba? You better
+next is removeItem()
+This one is probably the easiest one on the brain we yet again do an id match and once we find one, we remove it
+but: because doing that whole thing is like so tiring: just filter it out!
+
+Finally, updateQuantity()
+so this is for situations where we are actually trynna beef up the number of products through the cart
+so ideally, we just need to yet again: get the id, and the quantity 
+do a match, then set the new quantity to whatever is in our entry
+
+Yay! we on well
+
+Dont forget to export your actions and the reducer!
+
+4. Components: Products and Cart
+For Products, we just need to be able to add to the cart so in the shortest explanation possible,
+dispatch, useaction, ...spread, quantity: set when the button is clicked ofcourse
+
+For the Cart we should handle the rest
+So interestingly, here we actually have the items or rather the state changes
+Kwa maneno ya mganga kurahisisha, here is where we should be seeing the state changes from the cart slice
+so we handle remove and update then READ(useSelector) from the state to get the current status
+
+5. Add components to App
+
+Done!

@@ -1,20 +1,37 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { getProductsSelector } from './products.slice'
+import { useDispatch } from 'react-redux';
+import { addItem } from '../features/CartSlice';
 
+
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+}
+
+const products: Product[] = [
+  {id: '1', name: 'Product 1', price: 100},
+  {id: '2', name: 'Product 2', price: 200},
+]
 
 const ProductList:React.FC = () => {
+  const dispatch = useDispatch()
 
-  const products = useSelector(getProductsSelector)
+  const handleAddToCart = (product: Product) => {
+    dispatch(addItem({ ...product, quantity: 1}))
+  }
 
   return (
     <div>
-        <label>Games List</label>
-        {products.map(product =>
-            <div key={product.id}>
-                <span>{`${product.title}: ${product.price}`}</span>
-            </div>
-        )}
+      <h2>Products</h2>
+      <ul>
+        {products.map(product => (
+          <li key={product.id}>
+            <p>{product.name} - ${product.price}</p>
+            <button onClick={() => handleAddToCart(product)}>Add To Cart</button>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

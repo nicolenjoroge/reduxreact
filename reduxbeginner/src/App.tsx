@@ -1,14 +1,13 @@
 import './App.css'
-import ProductForm from './components/ProductForm'
 import ProductList from './components/ProductList'
-
+import Cart from './components/Cart'
 
 
 const App = () => {
   return (
     <div className='App'>
       <ProductList />
-      <ProductForm />
+      <Cart />
     </div>
   )
 }
